@@ -16,7 +16,7 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-app.set('pinterest', {app_id: process.env.app_id, app_secret: process.env.app_secret});
+app.set('pinterest', {app_id: process.env.APP_ID, app_secret: process.env.APP_SECRET});
 
 app.use(logger('dev'));
 app.use(express.json());
