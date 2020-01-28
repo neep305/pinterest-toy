@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios').default;
 
+const fs = require('fs');
+
 /**
  * 
  */
@@ -16,9 +18,13 @@ router.get('/callback', (req, res, next) => {
 
     // post pinterest access_token
     if (code && app_id && app_secret) {
-        axios.post('https://api.pinterest.com/v1/oauth/token?grant_type=authorization_code&client_id=' + app_id + '&client_secret=' + app_secret + '&code=' + code, {code:code})
+        axios.post('https://api.pinterest.com/v1/oauth/token?grant_type=authorization_code&client_id=' + app_id + '&client_secret=' + app_secret + '&code=' + code)
         .then((response) => {
-            console.log(response);
+            console.log(response.data);
+
+            fs.writeFile(`${__basedir}/pin_access_token.json`, response.data, (err) => {
+                console.log(err);
+            })
         })
         .catch((error) => {
             console.log(error);

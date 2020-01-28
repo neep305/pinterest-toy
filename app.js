@@ -6,6 +6,8 @@ var logger = require('morgan');
 
 require('dotenv').config();
 
+global.__basedir = __dirname;
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var oauth2Router = require('./routes/oauth2/index');
