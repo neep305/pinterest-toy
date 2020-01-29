@@ -22,8 +22,8 @@ router.get('/callback', (req, res, next) => {
         .then((response) => {
             console.log(response.data);
 
-            fs.writeFile(`${__basedir}/pin_access_token.json`, response.data, (err) => {
-                console.log(err);
+            fs.writeFile(`${__basedir}/pin_access_token.json`, response.data.access_token, (err) => {
+                console.log('err: ', err);
             })
         })
         .catch((error) => {
