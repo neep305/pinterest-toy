@@ -20,11 +20,13 @@ router.get('/callback', (req, res, next) => {
     if (code && app_id && app_secret) {
         axios.post('https://api.pinterest.com/v1/oauth/token?grant_type=authorization_code&client_id=' + app_id + '&client_secret=' + app_secret + '&code=' + code)
         .then((response) => {
-            console.log(response.data);
-
-            fs.writeFile(`${__basedir}/pin_access_token.json`, response.data.access_token, (err) => {
-                console.log('err: ', err);
-            })
+            
+            if (response.data) {
+                const access_token = JSON.stringify({access_token: response.data.access_token})
+                fs.writeFile(`${__basedir}/pin_access_token.json`, access_token, (err) => {
+                    console.log('err: ', err);
+                })
+            }            
         })
         .catch((error) => {
             console.log(error);
